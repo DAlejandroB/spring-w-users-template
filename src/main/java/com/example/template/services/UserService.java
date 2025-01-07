@@ -1,24 +1,32 @@
 package com.example.template.services;
 
+import com.example.template.models.Role;
 import com.example.template.models.User;
+import com.example.template.repositories.RoleRepository;
 import com.example.template.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
-    public User createUser(String username, String email, String rawPassword, Date birthday){
+    public User createUser(String username, String email, String rawPassword, Date birthday, Set<String> roleNames) {
         //TODO Raw password must be hashed before saving
-        User user = new User(username, email, rawPassword, birthday);
+
+        Set<Role> roles = new HashSet<>();
+        for (String roleName : roleNames) {
+            Role role = roleRepository.findByName(roleName).orElseThrow( () -> new RuntimeException("Role " + roleName + " not found"));
+            roles.add(role);
+        }
+        User user = new User(username, email, rawPassword, birthday, roles);
         return userRepository.save(user);
     }
 

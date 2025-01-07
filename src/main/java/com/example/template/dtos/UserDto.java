@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 import java.util.Date;
+import java.util.Set;
 
 public class UserDto {
 
@@ -24,6 +25,8 @@ public class UserDto {
     @NotBlank(message = "Password is required")
     @Past
     private Date birthday;
+
+    private Set<String> roles;
 
     // Getters and Setters
     public String getUsername() {
@@ -57,4 +60,8 @@ public class UserDto {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+
+    public Set<String> getRoles() { return roles; }
+
+    public void setRoles(Set<String> roles) { this.roles = roles; }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -29,13 +30,17 @@ public class User {
     @Column(nullable = false)
     private Date birthday;
 
+    @ManyToMany
+    private Set<Role> roles;
+
     public User(){}
 
-    public User(String username, String email, String passwordHash, Date birthday) {
+    public User(String username, String email, String passwordHash, Date birthday, Set<Role> roles) {
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
         this.birthday = birthday;
+        this.roles = roles;
     }
     public Date getBirthday() {
         return birthday;
@@ -76,4 +81,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Set<Role> getRoles() { return roles; }
+    public void setRoles(Set<Role> roles) { this.roles = roles; }
 }

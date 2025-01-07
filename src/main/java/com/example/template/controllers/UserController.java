@@ -17,6 +17,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> user(@PathVariable Long id) {
         return userService.getUserById(id)
@@ -35,7 +36,8 @@ public class UserController {
                 userDto.getUsername(),
                 userDto.getEmail(),
                 userDto.getPassword(),
-                userDto.getBirthday()
+                userDto.getBirthday(),
+                userDto.getRoles()
         );
         return ResponseEntity.ok(user);
     }
