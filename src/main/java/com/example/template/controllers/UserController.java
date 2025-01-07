@@ -1,9 +1,8 @@
-package com.example.demo.controllers;
+package com.example.template.controllers;
 
-import com.example.demo.dtos.UserDto;
-import com.example.demo.models.User;
-import com.example.demo.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.template.dtos.UserDto;
+import com.example.template.models.User;
+import com.example.template.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

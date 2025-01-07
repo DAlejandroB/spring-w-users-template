@@ -1,7 +1,7 @@
-package com.example.demo.services;
+package com.example.template.services;
 
-import com.example.demo.models.User;
-import com.example.demo.repositories.UserRepository;
+import com.example.template.models.User;
+import com.example.template.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
