@@ -1,5 +1,6 @@
 package com.example.template.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -30,6 +31,7 @@ public class User {
     @Column(nullable = false)
     private Date birthday;
 
+    @JsonManagedReference
     @ManyToMany
     private Set<Role> roles;
 
