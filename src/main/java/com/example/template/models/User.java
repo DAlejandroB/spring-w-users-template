@@ -27,7 +27,6 @@ public class User {
     @Column(nullable = false)
     private String passwordHash;
 
-    @NotBlank
     @Column(nullable = false)
     private Date birthday;
 
