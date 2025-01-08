@@ -5,6 +5,7 @@ import com.example.template.models.User;
 import com.example.template.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +15,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserController(UserService userService) {
         this.userService = userService;
+        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
     @GetMapping("/{id}")
@@ -33,13 +36,20 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDto userDto) {
+        String passwordHash = bCryptPasswordEncoder.encode(userDto.getPassword());
+
         User user = userService.createUser(
                 userDto.getUsername(),
                 userDto.getEmail(),
-                userDto.getPassword(),
+                passwordHash,
                 userDto.getBirthday(),
                 userDto.getRoles()
         );
         return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public boolean deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id);
     }
 }
